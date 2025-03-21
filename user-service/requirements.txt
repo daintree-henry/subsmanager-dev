@@ -6,3 +6,4 @@ Werkzeug
 Flask-Caching
 python-dateutil
 flask-cors
+requests

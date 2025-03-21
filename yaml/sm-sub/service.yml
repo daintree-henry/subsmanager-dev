@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: sm-db
+  name: sm-sub
   labels:
-    app: sm-db
+    app: sm-sub
 spec:
   selector:
-    app: sm-db
+    app: sm-sub
   ports:
-  - port: 5432
-    targetPort: 5432
+  - port: 80
+    targetPort: 80
   type: ClusterIP

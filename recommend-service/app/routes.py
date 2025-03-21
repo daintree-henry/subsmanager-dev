@@ -4,7 +4,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity
 import requests
 import os
 import random
-from config import Config
+from .config import Config
 
 bp = Blueprint('api', __name__)
 

@@ -5,7 +5,7 @@ metadata:
   labels:
     app: sm-front
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: sm-front
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: sm-front
-        image: sm-front
+        image: devwikirepo/sm-front:1.0.0
         ports:
         - containerPort: 80

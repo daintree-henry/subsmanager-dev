@@ -5,7 +5,7 @@ metadata:
   labels:
     app: sm-db
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: sm-db
@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: sm-db
-        image: sm-db
+        image: devwikirepo/sm-db:1.0.0
         ports:
         - containerPort: 80
