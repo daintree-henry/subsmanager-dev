@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-db
+  labels:
+    app: sm-db
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sm-db
+  template:
+    metadata:
+      labels:
+        app: sm-db
+    spec:
+      containers:
+      - name: sm-db
+        image: sm-db
+        ports:
+        - containerPort: 80

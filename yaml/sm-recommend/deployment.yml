@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-recommend
+  labels:
+    app: sm-recommend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sm-recommend
+  template:
+    metadata:
+      labels:
+        app: sm-recommend
+    spec:
+      containers:
+      - name: sm-recommend
+        image: sm-recommend
+        ports:
+        - containerPort: 80

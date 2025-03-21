@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-user
+  labels:
+    app: sm-user
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sm-user
+  template:
+    metadata:
+      labels:
+        app: sm-user
+    spec:
+      containers:
+      - name: sm-user
+        image: sm-user
+        ports:
+        - containerPort: 80
