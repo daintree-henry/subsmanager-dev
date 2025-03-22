@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-db
+  labels:
+    app: sm-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sm-db
+  template:
+    metadata:
+      labels:
+        app: sm-db
+    spec:
+      containers:
+      - name: sm-db
+        image: devwikirepo/sm-db:1.0.0
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sm-db
+  labels:
+    app: sm-db
+spec:
+  selector:
+    app: sm-db
+  ports:
+  - port: 5432
+    targetPort: 5432
+  type: ClusterIP
