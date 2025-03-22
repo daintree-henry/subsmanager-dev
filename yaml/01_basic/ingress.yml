@@ -1,12 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: sm-frontend-ingress
+  name: sm-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
+  ingressClassName: nginx
   rules:
-  - host: sm.local
+  - host: subsmanager.com 
     http:
       paths:
       - path: /
