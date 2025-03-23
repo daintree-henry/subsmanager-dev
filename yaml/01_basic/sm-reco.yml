@@ -15,7 +15,14 @@ spec:
         app: sm-reco
     spec:
       containers:
-      - name: sm-reco
+      - env:
+        - name: "SUB_URL"
+          value: "sm-subs"
+        - name: "RECOMMEND_COUNT"
+          value: "1"
+        - name: "JWT_SECRET_KEY"
+          value: "mJMLk2qwEFKp1Lx2FatzwVOA6-3FjMqkLEAWu74uCU9"
+        name: sm-reco
         image: devwikirepo/sm-reco:1.0.0
         ports:
         - containerPort: 5000

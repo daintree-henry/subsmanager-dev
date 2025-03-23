@@ -54,18 +54,18 @@ WHERE tgname = 'update_users_updated_at';
 -- 7. 샘플 데이터 삽입
 INSERT INTO users (email, username, password_hash, full_name, is_active)
 VALUES
-('john@subs.com', 'johndoe', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'John Doe', TRUE),
-('jane@subs.com', 'janedoe', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Jane Doe', TRUE),
-('bob@subs.com', 'bobsmith', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Bob Smith', TRUE),
-('alice@subs.com', 'alicejones', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Alice Jones', TRUE),
-('charlie@subs.com', 'charliebrown', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Charlie Brown', TRUE),
-('david@subs.com', 'davidtaylor', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'David Taylor', TRUE),
-('emma@subs.com', 'emmawilson', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Emma Wilson', TRUE),
-('frank@subs.com', 'frankthomas', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Frank Thomas', TRUE),
-('grace@subs.com', 'graceevans', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Grace Evans', TRUE),
-('henry@subs.com', 'henrymorgan', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Henry Morgan', TRUE),
-('isabella@subs.com', 'isabellalewis', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Isabella Lewis', TRUE),
-('jack@subs.com', 'jackmartin', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Jack Martin', TRUE),
-('karen@subs.com', 'karenlee', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Karen Lee', TRUE),
-('louis@subs.com', 'louishall', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Louis Hall', TRUE),
-('mia@subs.com', 'miaclark', 'scrypt:32768:8:1$PWcOaf8IVS8B5gaa$92bc17421b353966fa0a142fbed6c7fb33f657b643829f2ed7b3b56d8e9ace3c2c43e9714f70b64b1ada09e1585ab481e4b79db612530ad50ca6a4fc5a18f6b1', 'Mia Clark', TRUE);
+('john@subs.com', 'johndoe', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'John Doe', TRUE),
+('jane@subs.com', 'janedoe', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Jane Doe', TRUE),
+('bob@subs.com', 'bobsmith', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Bob Smith', TRUE),
+('alice@subs.com', 'alicejones', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Alice Jones', TRUE),
+('charlie@subs.com', 'charliebrown', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Charlie Brown', TRUE),
+('david@subs.com', 'davidtaylor', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'David Taylor', TRUE),
+('emma@subs.com', 'emmawilson', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Emma Wilson', TRUE),
+('frank@subs.com', 'frankthomas', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Frank Thomas', TRUE),
+('grace@subs.com', 'graceevans', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Grace Evans', TRUE),
+('henry@subs.com', 'henrymorgan', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Henry Morgan', TRUE),
+('isabella@subs.com', 'isabellalewis', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Isabella Lewis', TRUE),
+('jack@subs.com', 'jackmartin', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Jack Martin', TRUE),
+('karen@subs.com', 'karenlee', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Karen Lee', TRUE),
+('louis@subs.com', 'louishall', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Louis Hall', TRUE),
+('mia@subs.com', 'miaclark', 'scrypt:32768:8:1$TJgF3ln3IytxhAxa$1a93b0210042f1a3eeda3c22e73528b7ccb8fd08a1a2f9290211b4868d4ad6fb0dae917d7a8566da390c9a216e69e8ca7056a45d06f6a280a8127f2c100462a1', 'Mia Clark', TRUE);
