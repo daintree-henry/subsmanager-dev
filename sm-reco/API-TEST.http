@@ -1,7 +1,0 @@
-@baseUrl = http://localhost:5003
-@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc0MDI5Nzg0MSwianRpIjoiMWUyMzVlMTctMTJlZS00ZmQ4LTlmYzItMDI4Zjg3MTE0YTE4IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjE2IiwibmJmIjoxNzQwMjk3ODQxLCJjc3JmIjoiYzBlY2JiMzEtMzI3NS00M2FjLTllODQtYjAwMDRkZGI0MjY1IiwiZXhwIjoxNzQwMzAxNDQxLCJlbWFpbCI6InRlc3RAdGVzdC5jb20ifQ.SAIb2jJnWti8IIWadZtXR6l9wQypMpvuhKPBl14rsfo
-
-### Get Recommend
-POST {{baseUrl}}/recommend
-Authorization: Bearer {{authToken}}
-Content-Type: application/json

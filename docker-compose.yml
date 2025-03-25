@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  sm-db:
+    build:
+      context: ./sm-db
+    container_name: sm-db
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  sm-redis:
+    build:
+      context: ./sm-redis
+    container_name: sm-redis
+    ports:
+      - "6379:6379"
+
+  sm-user:
+    build:
+      context: ./sm-user
+    container_name: sm-user
+    depends_on:
+      - sm-db
+      - sm-redis
+    environment:
+      DB_HOST: sm-db
+    ports:
+      - "5005:5000" # 외부 5005 → 내부 Flask 5000
+
+  sm-subs:
+    build:
+      context: ./sm-subs
+    container_name: sm-subs
+    depends_on:
+      - sm-db
+      - sm-redis
+    environment:
+      DB_HOST: sm-db
+    ports:
+      - "5004:5000"
+
+  sm-reco:
+    build:
+      context: ./sm-reco
+    container_name: sm-reco
+    depends_on:
+      - sm-db
+      - sm-redis
+    environment:
+      DB_HOST: sm-db
+      REDIS_HOST: sm-redis
+      SUB_URL: http://sm-subs:5000
+    ports:
+      - "5003:5000"
+
+  sm-frontend:
+    build:
+      context: ./sm-frontend
+      dockerfile: dev/Dockerfile-local
+    container_name: sm-frontend
+    ports:
+      - "5173:5173"
+
+volumes:
+  db_data:

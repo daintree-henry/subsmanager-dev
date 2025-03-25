@@ -5,6 +5,7 @@ from flask import Flask
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from .config import Config
+from redis import Redis
 
 jwt = JWTManager()
 
@@ -12,6 +13,14 @@ jwt = JWTManager()
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
+
+    app.redis = Redis(
+        host=app.config['REDIS_HOST'],
+        port=app.config['REDIS_PORT'],
+        db=app.config['REDIS_DB'],
+        password=app.config['REDIS_PASSWORD'],
+        decode_responses=True
+    )
 
     # CORS 허용 도메인을 환경 변수에서 가져오기
     allowed_origins = os.getenv('ALLOWED_ORIGINS', 'http://localhost:5173').split(',')

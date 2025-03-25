@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from http import HTTPStatus
 
 from app import db, jwt
 from app.models import User
@@ -82,3 +83,12 @@ def get_current_user():
         # Add detailed logging for debugging
         return jsonify({'error': 'A server error occurred.'}), 500
 
+@bp.route('/health', methods=['GET'])
+def health_check():
+    """
+    서버 헬스체크용 엔드포인트
+    """
+    return jsonify({
+        'status': 'ok',
+        'message': 'Server is healthy.'
+    }), HTTPStatus.OK

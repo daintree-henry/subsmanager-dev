@@ -5,9 +5,10 @@ import requests
 import os
 import random
 from .config import Config
+import json
+from datetime import timedelta
 
 bp = Blueprint('api', __name__)
-
 
 @bp.route('/recommend', methods=['POST'])
 @jwt_required()
@@ -35,11 +36,24 @@ def recommend_subscription_plan():
         user_subscriptions_ids = {sub['plan']['id'] for sub in user_subscriptions_list}
         user_subscribed_providers = {sub['plan']['provider_name'] for sub in user_subscriptions_list}
 
-        # 모든 활성화된 구독 플랜 조회 API 호출
-        all_plans_response = requests.get(
-            f'{os.getenv("SUB_URL")}/sub/plans',
-            headers={'Authorization': access_token}
-        )
+        cached_all_plans = current_app.redis.get(Config.CACHE_KEY)
+        if cached_all_plans:
+            all_plans_list = json.loads(cached_all_plans)
+        else:
+            all_plans_response = requests.get(
+                f'{os.getenv("SUB_URL")}/sub/plans',
+                headers={'Authorization': access_token}
+            )
+            if all_plans_response.status_code != HTTPStatus.OK:
+                return jsonify({
+                    'error': 'Failed to fetch available subscription plans.'
+                }), HTTPStatus.INTERNAL_SERVER_ERROR
+
+            all_plans_list = all_plans_response.json()
+
+            # 캐시에 저장
+            current_app.redis.setex(Config.CACHE_KEY, timedelta(seconds=Config.CACHE_TTL_SECOND), json.dumps(all_plans_list))
+            current_app.logger.info("Fetched subscription plans from API and cached them")
 
         if all_plans_response.status_code != HTTPStatus.OK:
             return jsonify({
@@ -64,7 +78,7 @@ def recommend_subscription_plan():
                 'message': 'No available subscription plans to recommend.'
             }), HTTPStatus.OK
 
-        # 무작위 추천 (최대 3개 선택)
+        # 무작위 추천 
         recommended_plans = random.sample(filtered_plans, min(int(Config.RECOMMEND_COUNT), len(filtered_plans)))
 
         current_app.logger.info(
@@ -78,3 +92,12 @@ def recommend_subscription_plan():
             'error': 'An error occurred while processing your request.'
         }), HTTPStatus.INTERNAL_SERVER_ERROR
 
+@bp.route('/health', methods=['GET'])
+def health_check():
+    """
+    서버 헬스체크용 엔드포인트
+    """
+    return jsonify({
+        'status': 'ok',
+        'message': 'Server is healthy.'
+    }), HTTPStatus.OK

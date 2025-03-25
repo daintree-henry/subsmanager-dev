@@ -421,3 +421,13 @@ def get_user_payments():
     except Exception as e:
         current_app.logger.error(f"Error fetching user payments: {str(e)}")
         return jsonify({"error": "Internal Server Error"}), 500
+
+@bp.route('/health', methods=['GET'])
+def health_check():
+    """
+    서버 헬스체크용 엔드포인트
+    """
+    return jsonify({
+        'status': 'ok',
+        'message': 'Server is healthy.'
+    }), HTTPStatus.OK
