@@ -20,6 +20,21 @@ def recommend_subscription_plan():
         current_user_id = get_jwt_identity()
         current_app.logger.info(f'Fetching subscription recommendation for user {current_user_id}')
 
+        # force=true 여부 확인
+        force_recommend = request.args.get('force', 'false').lower() == 'true'
+
+        # 사용자별 캐시 확인
+        user_cache_key = f"user:{current_user_id}:recommendation"
+        if not force_recommend:
+            cached_recommendation = current_app.redis.get(user_cache_key)
+            if cached_recommendation:
+                current_app.logger.info(f'Returned cached recommendation for user {current_user_id}')
+                return jsonify({
+                    'recommends': json.loads(cached_recommendation)
+                }), HTTPStatus.OK
+        else:
+            current_app.logger.info(f'Force recommendation triggered by user {current_user_id}')
+
         # 현재 사용자의 구독 플랜 조회 API 호출
         access_token = request.headers.get('Authorization')
         user_subscriptions_response = requests.get(
@@ -36,6 +51,7 @@ def recommend_subscription_plan():
         user_subscriptions_ids = {sub['plan']['id'] for sub in user_subscriptions_list}
         user_subscribed_providers = {sub['plan']['provider_name'] for sub in user_subscriptions_list}
 
+        # 전체 플랜 캐시 확인
         cached_all_plans = current_app.redis.get(Config.CACHE_KEY)
         if cached_all_plans:
             all_plans_list = json.loads(cached_all_plans)
@@ -52,15 +68,12 @@ def recommend_subscription_plan():
             all_plans_list = all_plans_response.json()
 
             # 캐시에 저장
-            current_app.redis.setex(Config.CACHE_KEY, timedelta(seconds=Config.CACHE_TTL_SECOND), json.dumps(all_plans_list))
+            current_app.redis.setex(
+                Config.CACHE_KEY,
+                timedelta(seconds=Config.CACHE_TTL_SECOND),
+                json.dumps(all_plans_list)
+            )
             current_app.logger.info("Fetched subscription plans from API and cached them")
-
-        if all_plans_response.status_code != HTTPStatus.OK:
-            return jsonify({
-                'error': 'Failed to fetch available subscription plans.'
-            }), HTTPStatus.INTERNAL_SERVER_ERROR
-
-        all_plans_list = all_plans_response.json()
 
         # 사용자가 구독하지 않은 플랜 필터링 (같은 provider_name 제외)
         provider_plan_map = {}
@@ -80,6 +93,13 @@ def recommend_subscription_plan():
 
         # 무작위 추천 
         recommended_plans = random.sample(filtered_plans, min(int(Config.RECOMMEND_COUNT), len(filtered_plans)))
+
+        # 사용자별 캐시에 추천 결과 저장
+        current_app.redis.setex(
+            user_cache_key,
+            timedelta(seconds=Config.RECOMMEND_CACHE_TTL_SECOND),
+            json.dumps(recommended_plans)
+        )
 
         current_app.logger.info(
             f'Successfully recommended plans {[plan["id"] for plan in recommended_plans]} for user {current_user_id}')
