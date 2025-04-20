@@ -70,7 +70,7 @@ def recommend_subscription_plan():
             # 캐시에 저장
             current_app.redis.setex(
                 Config.CACHE_KEY,
-                timedelta(seconds=Config.CACHE_TTL_SECOND),
+                timedelta(seconds=Config.SUBS_CACHE_TTL_SECOND),
                 json.dumps(all_plans_list)
             )
             current_app.logger.info("Fetched subscription plans from API and cached them")

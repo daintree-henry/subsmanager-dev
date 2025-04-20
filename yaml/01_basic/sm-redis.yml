@@ -1,34 +1,34 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sm-frontend
+  name: sm-redis
   labels:
-    app: sm-frontend
+    app: sm-redis
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sm-frontend
+      app: sm-redis
   template:
     metadata:
       labels:
-        app: sm-frontend
+        app: sm-redis
     spec:
       containers:
-      - name: sm-frontend
-        image: devwikirepo/sm-frontend:1.0.0
+      - name: sm-redis
+        image: devwikirepo/sm-redis:1.0.0
         imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: sm-frontend
+  name: sm-redis
   labels:
-    app: sm-frontend
+    app: sm-redis
 spec:
   selector:
-    app: sm-frontend
+    app: sm-redis
   ports:
-  - port: 80
-    targetPort: 80
+  - port: 6379
+    targetPort: 6379
   type: ClusterIP
