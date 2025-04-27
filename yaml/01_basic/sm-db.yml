@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sm-db
+  namespace: subsmanager
   labels:
     app: sm-db
 spec:
@@ -15,20 +16,21 @@ spec:
         app: sm-db
     spec:
       containers:
-      - name: sm-db
-        image: devwikirepo/sm-db:1.0.0
-        imagePullPolicy: Always
+        - name: sm-db
+          image: devwikirepo/sm-db:1.0.0
+          imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: sm-db
+  namespace: subsmanager
   labels:
     app: sm-db
 spec:
   selector:
     app: sm-db
   ports:
-  - port: 5432
-    targetPort: 5432
+    - port: 5432
+      targetPort: 5432
   type: ClusterIP

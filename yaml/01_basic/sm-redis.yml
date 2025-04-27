@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sm-redis
+  namespace: subsmanager
   labels:
     app: sm-redis
 spec:
@@ -15,20 +16,21 @@ spec:
         app: sm-redis
     spec:
       containers:
-      - name: sm-redis
-        image: devwikirepo/sm-redis:1.0.0
-        imagePullPolicy: Always
+        - name: sm-redis
+          image: devwikirepo/sm-redis:1.0.0
+          imagePullPolicy: Always
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: sm-redis
+  namespace: subsmanager
   labels:
     app: sm-redis
 spec:
   selector:
     app: sm-redis
   ports:
-  - port: 6379
-    targetPort: 6379
+    - port: 6379
+      targetPort: 6379
   type: ClusterIP
