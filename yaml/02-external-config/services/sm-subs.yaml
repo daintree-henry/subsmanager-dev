@@ -16,21 +16,18 @@ spec:
         app: sm-subs
     spec:
       containers:
-        - env:
-            - name: "DB_USER"
-              value: "postgres"
-            - name: "DB_PASSWORD"
-              value: "asdf1234!"
-            - name: "DB_HOST"
-              value: "sm-db"
-            - name: "DB_PORT"
-              value: "5432"
-            - name: "DB_NAME"
-              value: "subs-service"
-            - name: "JWT_SECRET_KEY"
-              value: "mJMLk2qwEFKp1Lx2FatzwVOA6-3FjMqkLEAWu74uCU9"
-          name: sm-subs
+        - name: sm-subs
           image: devwikirepo/sm-subs:1.0.0
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+            - secretRef:
+                name: jwt-secret
+            - secretRef:
+                name: postgres-secret
+          env:
+            - name: DB_NAME
+              value: subs_service
 ---
 apiVersion: v1
 kind: Service

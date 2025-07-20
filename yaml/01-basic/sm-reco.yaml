@@ -17,19 +17,19 @@ spec:
     spec:
       containers:
         - env:
-            - name: "SUB_URL"
-              value: "sm-subs"
-            - name: "REDIS_HOST"
-              value: "sm-redis"
-            - name: "REDIS_PORT"
+            - name: SUB_URL
+              value: sm-subs
+            - name: REDIS_HOST
+              value: sm-redis
+            - name: REDIS_PORT
               value: "6379"
-            - name: "REDIS_PASSWORD"
-              value: "redispassword"
-            - name: "SUBS_CACHE_TTL_SECOND"
+            - name: REDIS_PASSWORD
+              value: redispassword
+            - name: SUBS_CACHE_TTL_SECOND
               value: "60"
-            - name: "RECOMMEND_COUNT"
+            - name: RECOMMEND_COUNT
               value: "1"
-            - name: "RECOMMEND_CACHE_TTL_SECOND"
+            - name: RECOMMEND_CACHE_TTL_SECOND
               value: "300"
           name: sm-reco
           image: devwikirepo/sm-reco:1.0.0

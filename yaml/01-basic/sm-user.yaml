@@ -17,18 +17,18 @@ spec:
     spec:
       containers:
         - env:
-            - name: "DB_USER"
-              value: "postgres"
-            - name: "DB_PASSWORD"
-              value: "asdf1234!"
-            - name: "DB_HOST"
-              value: "sm-db"
-            - name: "DB_PORT"
+            - name: DB_USER
+              value: postgres
+            - name: DB_PASSWORD
+              value: asdf1234!
+            - name: DB_HOST
+              value: sm-db
+            - name: DB_PORT
               value: "5432"
-            - name: "DB_NAME"
-              value: "user-service"
-            - name: "JWT_SECRET_KEY"
-              value: "mJMLk2qwEFKp1Lx2FatzwVOA6-3FjMqkLEAWu74uCU9"
+            - name: DB_NAME
+              value: user_service
+            - name: JWT_SECRET_KEY
+              value: mJMLk2qwEFKp1Lx2FatzwVOA6-3FjMqkLEAWu74uCU9
           name: sm-user
           image: devwikirepo/sm-user:1.0.1
 ---

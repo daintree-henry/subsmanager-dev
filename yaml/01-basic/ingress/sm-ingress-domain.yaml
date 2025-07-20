@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sm-ingress
+  namespace: subsmanager
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: subs-manager.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: sm-frontend
+                port:
+                  number: 80
+          - path: /users
+            pathType: Prefix
+            backend:
+              service:
+                name: sm-user
+                port:
+                  number: 80
+          - path: /sub
+            pathType: Prefix
+            backend:
+              service:
+                name: sm-subs
+                port:
+                  number: 80
+          - path: /recommend
+            pathType: Prefix
+            backend:
+              service:
+                name: sm-reco
+                port:
+                  number: 80
