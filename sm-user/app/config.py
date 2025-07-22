@@ -16,3 +16,6 @@ class Config:
     # JWT Configuration
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'mJMLk2qwEFKp1Lx2FatzwVOA6-3FjMqkLEAWu74uCU9')
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(seconds=int(os.getenv('JWT_ACCESS_TOKEN_EXPIRES', 3600)))  # 기본값: 1시간
+
+    # Fixed secret key for internal service-to-service calls
+    INTERNAL_SECRET = 'secret123'

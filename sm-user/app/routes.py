@@ -30,7 +30,6 @@ def register():
 
     return jsonify(user.to_dict()), 201
 
-
 @bp.route('/users/login', methods=['POST'])
 def login():
     try:
@@ -82,6 +81,20 @@ def get_current_user():
     except Exception as e:
         # Add detailed logging for debugging
         return jsonify({'error': 'A server error occurred.'}), 500
+
+@bp.route('/users/internal', methods=['GET'])
+def get_all_users_internal():
+    """
+    내부 시스템용 전체 사용자 목록 반환 (JWT 없이 호출)
+    """
+    internal_secret = request.headers.get('X-Internal-Secret')
+    
+    # 내부 호출 허용 조건
+    if not internal_secret or internal_secret != current_app.config['INTERNAL_SECRET']:
+        return jsonify({'error': 'Unauthorized'}), 401
+            
+    users = User.query.all()
+    return jsonify([user.to_dict() for user in users]), HTTPStatus.OK
 
 @bp.route('/health', methods=['GET'])
 def health_check():

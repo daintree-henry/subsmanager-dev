@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: sm-pre-reco-cronjob
+  namespace: subsmanager
+spec:
+  schedule: "0 3 * * *" 
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+              - name: sm-pre-reco
+                image: devwikirepo/sm-pre-reco:1.0.0
+                envFrom:
+                  - configMapRef:
+                      name: redis-config
+                  - secretRef:
+                      name: redis-secret
+              env:
+                - name: SUB_URL
+                  value: http://sm-subs
+                - name: USER_URL
+                  value: http://sm-user
+                - name: RECOMMEND_COUNT
+                  value: "1"
+                - name: RECOMMEND_CACHE_TTL_SECOND
+                  value: "86400"
+          restartPolicy: OnFailure

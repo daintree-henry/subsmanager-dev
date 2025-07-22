@@ -139,7 +139,6 @@ def get_subscription(subscription_id):
         return jsonify({'error': 'A server error occurred.'}), HTTPStatus.INTERNAL_SERVER_ERROR
 
 @bp.route('/sub/plans', methods=['GET'])
-@jwt_required()
 def get_subscription_plans():
     """
     활성화된 구독 요금제 및 제공업체 정보를 조회하는 엔드포인트.
@@ -179,14 +178,25 @@ def get_subscription_plans():
         return jsonify({"error": "Internal Server Error"}), 500
 
 @bp.route('/sub/plans/user', methods=['GET'])
-@jwt_required()
+@jwt_required(optional=True)
 def get_user_subscription_plans():
     """
     현재 로그인한 사용자의 구독 플랜 정보를 조회하는 엔드포인트
+    - 내부 호출: X-Internal-User-ID, X-Internal-Secret 사용
+    - 외부 호출: JWT 인증 사용
     """
     try:
-        current_app.logger.info('Fetching user subscription plans')
-        user_id = get_jwt_identity()
+        internal_user_id = request.headers.get('X-Internal-User-ID')
+        internal_secret = request.headers.get('X-Internal-Secret')
+
+        if internal_user_id and internal_secret == current_app.config['INTERNAL_SECRET']:
+            user_id = internal_user_id
+            current_app.logger.info(f"[Internal] Fetching subscription plans for user {user_id}")
+        else:
+            user_id = get_jwt_identity()
+            if not user_id:
+                return jsonify({'error': 'Unauthorized'}), 401
+            current_app.logger.info(f"[JWT] Fetching subscription plans for user {user_id}")
 
         # 사용자의 구독 정보 조회
         subscriptions = (

@@ -13,3 +13,6 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     JWT_SECRET_KEY = os.getenv('JWT_SECRET_KEY', 'mJMLk2qwEFKp1Lx2FatzwVOA6-3FjMqkLEAWu74uCU9')
+
+    # Fixed secret key for internal service-to-service calls
+    INTERNAL_SECRET = 'secret123'
