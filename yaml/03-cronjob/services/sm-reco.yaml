@@ -18,6 +18,7 @@ spec:
       containers:
         - name: sm-reco
           image: devwikirepo/sm-reco:1.0.0
+          imagePullPolicy: Always
           envFrom:
             - configMapRef:
                 name: redis-config

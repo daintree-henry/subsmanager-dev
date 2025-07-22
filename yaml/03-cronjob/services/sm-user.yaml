@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: sm-user
-          image: devwikirepo/sm-user:1.0.1
+          image: devwikirepo/sm-user:1.0.2
           envFrom:
             - configMapRef:
                 name: postgres-config
