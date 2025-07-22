@@ -31,12 +31,14 @@ def create_app():
     formatter = logging.Formatter(
         '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
-    handler.setFormatter(formatter)
-    app.logger.addHandler(handler)
+    handler.setFormatter(formatter)   
+    if not app.logger.handlers:
+        app.logger.addHandler(handler)
 
     # 로깅 레벨 설정
     app.logger.setLevel(logging.INFO)
     app.logger.info("Flask application started")
+    app.logger.propagate = False   
 
     from app.routes import bp as api_bp
     CORS(api_bp)
