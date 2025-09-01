@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: subsmanager
+data:
+  DB_HOST: sm-db
+  DB_PORT: "5432"

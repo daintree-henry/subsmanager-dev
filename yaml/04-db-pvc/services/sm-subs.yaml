@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-subs
+  namespace: subsmanager
+  labels:
+    app: sm-subs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sm-subs
+  template:
+    metadata:
+      labels:
+        app: sm-subs
+    spec:
+      containers:
+        - name: sm-subs
+          image: devwikirepo/sm-subs:1.0.2
+          envFrom:
+            - configMapRef:
+                name: postgres-config
+            - secretRef:
+                name: postgres-secret
+            - secretRef:
+                name: jwt-secret
+          env:
+            - name: DB_NAME
+              value: subs_service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sm-subs
+  namespace: subsmanager
+  labels:
+    app: sm-subs
+spec:
+  selector:
+    app: sm-subs
+  ports:
+    - port: 80
+      targetPort: 5000
+  type: ClusterIP

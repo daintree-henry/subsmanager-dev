@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-db
+  namespace: subsmanager
+  labels:
+    app: sm-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sm-db
+  template:
+    metadata:
+      labels:
+        app: sm-db
+    spec:
+      containers:
+        - name: sm-db
+          image: devwikirepo/sm-db:1.0.0
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: sm-db-storage
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: sm-db-storage
+          persistentVolumeClaim:
+            claimName: sm-db-pvc
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sm-db
+  namespace: subsmanager
+  labels:
+    app: sm-db
+spec:
+  selector:
+    app: sm-db
+  ports:
+    - port: 5432
+      targetPort: 5432
+  type: ClusterIP

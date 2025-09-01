@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sm-reco
+  namespace: subsmanager
+  labels:
+    app: sm-reco
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sm-reco
+  template:
+    metadata:
+      labels:
+        app: sm-reco
+    spec:
+      containers:
+        - name: sm-reco
+          image: devwikirepo/sm-reco:1.0.0
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: redis-config
+            - configMapRef:
+                name: reco-config
+            - secretRef:
+                name: redis-secret
+          env:
+            - name: SUB_URL
+              value: sm-subs
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sm-reco
+  namespace: subsmanager
+  labels:
+    app: sm-reco
+spec:
+  selector:
+    app: sm-reco
+  ports:
+    - port: 80
+      targetPort: 5000
+  type: ClusterIP

@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: reco-config
+  namespace: subsmanager
+data:
+  SUBS_CACHE_TTL_SECOND: "60"
+  RECOMMEND_COUNT: "1"
+  RECOMMEND_CACHE_TTL_SECOND: "300"
